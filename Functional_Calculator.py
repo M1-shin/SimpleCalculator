@@ -1,26 +1,29 @@
+from mimetypes import inited
 from tkinter import *
 
 window = Tk()
 window.title("Simple Calculator")
 window.geometry("500x500")
 
-equationlabels = StringVar()
-equationlabels.set("")
+calculation = StringVar()
+calculation.set("")
 
 def press(num):
-    equationlabels.set(equationlabels.get() + str(num))
+    calculation.set(calculation.get() + str(num))
 
 def clear():
-    equationlabels.set("")
+    calculation.set("")
 
 def equal():
-    try:
-        result = str(eval(equationlabels.get()))
-        equationlabels.set(result)
-    except:
-        equationlabels.set("Error")
+    expression = calculation.get()
 
-label = Label(window, textvariable=equationlabels, font=('century', 20), bg="#ffc2d1",  fg="#3a2d2d",  width=19, height=2, anchor="e")
+    if expression != "":
+        result = str(eval(expression))
+        calculation.set(result)
+    else:
+        calculation.set("0")
+
+label = Label(window, textvariable=calculation, font=('century', 20), bg="#ffc2d1",  fg="#3a2d2d",  width=19, height=2, anchor="e")
 
 row1 = Frame(window, bg="#fff0f3")
 row2 = Frame(window, bg="#fff0f3")
@@ -47,6 +50,7 @@ btn0 = Button(row4, text="0", width=6, height=2, font=20, bg="#ffe5ec", fg="#3a2
 btnequal = Button(row4, text="=", width=6, height=2, font=20, bg="#ffccd5", fg="#3a2d2d", command=equal)
 btndivide = Button(row4, text="/", width=6, height=2, font=20, bg="#ffb3c6", fg="#3a2d2d", command=lambda: press("/"))
 btnadd = Button(row4, text="+", width=6, height=2, font=20, bg="#ffb3c6", fg="#3a2d2d", command=lambda: press("+"))
+
 
 
 label.pack(side=TOP)
